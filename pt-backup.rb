@@ -3,6 +3,7 @@ require 'bundler'
 Bundler.require
 
 require 'fileutils'
+require 'yaml'
 
 @config = YAML::load_file('config.yml')
 raise "api_token missing from config.yml" if @config['api_token'].nil? || @config['api_token'].empty?
