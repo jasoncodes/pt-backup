@@ -1,30 +1,71 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    builder (3.2.0)
-    crack (0.3.2)
-    happymapper (0.4.0)
-      libxml-ruby (~> 2.0)
-    libxml-ruby (2.9.0)
-    mime-types (1.21)
-    mini_portile2 (2.2.0)
-    nokogiri (1.8.0)
-      mini_portile2 (~> 2.2.0)
-    nokogiri-happymapper (0.5.6)
-      nokogiri (~> 1.5)
-    pivotal-tracker (0.5.10)
-      builder
-      crack
-      happymapper (>= 0.3.2)
-      nokogiri (>= 1.4.3)
-      nokogiri (>= 1.5.5)
-      nokogiri-happymapper (>= 0.5.4)
-      rest-client (~> 1.6.0)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    declarative (0.0.10)
+    declarative-option (0.1.0)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    domain_name (0.5.20180417)
+      unf (>= 0.0.5, < 1.0.0)
+    equalizer (0.0.11)
+    excon (0.62.0)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.13.0)
+      faraday (>= 0.7.4, < 1.0)
+    http (4.0.3)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.0)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.1.1)
+    http_parser.rb (0.6.0)
+    ice_nine (0.11.2)
+    mimemagic (0.3.3)
+    multi_json (1.13.1)
+    multipart-post (2.0.0)
+    public_suffix (3.0.3)
+    representable (3.0.4)
+      declarative (< 0.1.0)
+      declarative-option (< 0.2.0)
+      uber (< 0.2.0)
+    thread_safe (0.3.6)
+    tracker_api (1.9.1)
+      addressable
+      equalizer
+      excon
+      faraday
+      faraday_middleware
+      mimemagic
+      multi_json
+      representable
+      virtus
+    uber (0.1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.5)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  pivotal-tracker
+  http
+  tracker_api
+
+BUNDLED WITH
+   2.0.1

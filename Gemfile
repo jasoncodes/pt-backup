@@ -1,3 +1,4 @@
 source 'https://rubygems.org/'
 
-gem 'pivotal-tracker'
+gem 'tracker_api'
+gem 'http'

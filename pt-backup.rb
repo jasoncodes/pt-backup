@@ -7,37 +7,33 @@ require 'yaml'
 
 @config = YAML::load_file('config.yml')
 raise "api_token missing from config.yml" if @config['api_token'].nil? || @config['api_token'].empty?
-PivotalTracker::Client.token = @config['api_token']
+client = TrackerApi::Client.new(token: @config['api_token'])
 
 def tracker_get(url, path, max_redirects = 5)
-  uri = URI.parse url
-  http = Net::HTTP.new uri.host, uri.port
-  http.use_ssl = uri.is_a?(URI::HTTPS)
-  http.request_get uri.request_uri, { 'X-TrackerToken' => @config['api_token'] } do |response|
-    case response
-    when Net::HTTPSuccess
-      File.open "#{path}.new", 'w' do |io|
-        response.read_body do |segment|
-          io.write segment
-        end
-      end
-      FileUtils.mv "#{path}.new", path
-    when Net::HTTPRedirection
-      raise ArgumentError, 'HTTP redirect too deep' if max_redirects < 1
-      tracker_get url, response['location'], max_redirects - 1
-    else
-      response.error!
-    end
-  end
+  rows = []
+  offset = 0
+
+  begin
+    response = HTTP.get(url, headers: {'X-TrackerToken' => @config['api_token']}, params: {offset: offset})
+    this_rows = response.parse
+    raise if this_rows.empty?
+    rows += this_rows
+    offset += this_rows.size
+
+    rows_total = Integer(response['x-tracker-pagination-total'])
+  end until rows.size >= rows_total
+
+  File.write "#{path}.new", JSON.pretty_generate(rows)
+  FileUtils.mv "#{path}.new", path
 end
 
-PivotalTracker::Project.all.each do |project|
+client.projects.each do |project|
   
   puts "Backing up #{project.name.inspect}..."
   FileUtils.mkdir_p "projects/#{project.name}"
   
   tracker_get \
-    "https://www.pivotaltracker.com/services/v3/projects/#{project.id}/stories",
-    "projects/#{project.name}/stories.xml"
+    "https://www.pivotaltracker.com/services/v5/projects/#{project.id}/stories",
+    "projects/#{project.name}/stories.json"
   
 end
