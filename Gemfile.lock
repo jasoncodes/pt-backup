@@ -16,7 +16,7 @@ GEM
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
-    excon (0.62.0)
+    excon (0.76.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.13.0)
@@ -68,4 +68,4 @@ DEPENDENCIES
   tracker_api
 
 BUNDLED WITH
-   2.0.1
+   2.1.4
